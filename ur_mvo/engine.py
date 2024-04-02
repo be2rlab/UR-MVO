@@ -1,5 +1,5 @@
-from ur_mvo.engine import UR_MVO as VO
-from ur_mvo.components import Setup, Frame, Mask, DepthMap, Image
+from py_ur_mvo import UR_MVO as VO
+from ur_mvo.components import Setup, Frame, Mask, DepthMap, Image, Pose
 
 import cv2 as cv
 import numpy as np
@@ -39,7 +39,7 @@ def interpolate(p1: Pose, p2: Pose, samples:int = 1) -> List[Pose]:
         poses.append(p)
     return poses
 
-class VisualOdometry:
+class UR_MVO:
     def __init__(self, config: dict, setup: Setup):
         self.config = config
         self.setup = setup

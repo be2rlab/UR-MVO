@@ -143,9 +143,9 @@ endif(USE_ROS)
 
 if (Python_FOUND)
     ament_python_install_package(${PROJECT_NAME})
-    pybind11_add_module(pyvo main_py.cpp)
-    target_link_libraries(pyvo PRIVATE ${PROJECT_NAME}_lib)
-    install(TARGETS pyvo DESTINATION ${PYTHON_INSTALL_DIR}/${PROJECT_NAME})
+    pybind11_add_module(py_ur_mvo main_py.cpp)
+    target_link_libraries(py_ur_mvo PRIVATE ${PROJECT_NAME}_lib)
+    install(TARGETS py_ur_mvo DESTINATION ${PYTHON_INSTALL_DIR}/${PROJECT_NAME})
 endif()
 
 

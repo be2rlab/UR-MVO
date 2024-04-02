@@ -33,7 +33,7 @@ run:
 	@echo "Running VO"
 	cd $(ROOT_DIR) && \
 	export $(BASE_PARAMETERS) && \
-	sudo ROOT_DIR=$(ROOT_DIR) DATA_DIR=$(DATA_DIR) docker compose $(DOCKER_COMPOSE_FILES) run ur_mvo
+	sudo ROOT_DIR=$(ROOT_DIR) DATA_DIR=$(DATA_DIR) docker compose $(DOCKER_COMPOSE_FILES) run UR_MVO
 
 pre-visualization:
 	xhost +local:

@@ -196,8 +196,12 @@ RUN /bin/bash -c "source /opt/ros/$ROS_DISTRO/setup.bash "
 RUN /bin/bash -c "colcon build --executor sequential"
 RUN /bin/bash -c "source install/setup.bash"
 
+WORKDIR /workspace/ros2_ws/src/ur_mvo/scripts
+
 # Copy the entrypoint script
 COPY ${ROOT_DIR}/docker/ros_entrypoint.sh /
+
+
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["/bin/bash"]

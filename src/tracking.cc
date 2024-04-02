@@ -1136,7 +1136,6 @@ void Tracking::SaveTrajectory(std::string file_path) {
   _map->SaveKeyframeTrajectory(file_path);
 }
 
-void Tracking::SaveMap(const std::string &map_root) { _map->SaveMap(map_root); }
 
 void Tracking::ShutDown() {
   _shutdown = true;

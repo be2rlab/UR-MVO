@@ -317,7 +317,7 @@ private:
     std::string setup;
 };
 
-PYBIND11_MODULE(pyvo, m) {
+PYBIND11_MODULE(py_ur_mvo, m) {
     py::class_<UR_MVO>(m, "UR_MVO")
             .def(py::init<const py::dict&, const std::string&>())
             .def("processMono", &UR_MVO::processMono)
