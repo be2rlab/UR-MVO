@@ -1,18 +1,36 @@
-# UR-MVO
-Underwater Robust - Monocular Visual Odometry
+# UR-MVO: Underwater Robust Monocular Visual Odometry
 
-## Introduction:
-We propose UR-MVO a robust monocular visual odometry pipeline tailored for underwater scenarios with feature extraction and matching based on SuperPoint and SuperGlue respectively. 
-We enhance robustness of the feature extractor through fine-tuning and integrating semantic segmentation to filter out features belonging to dynamic objects or background. 
+## Table of Contents
 
-![alt text](assets/pipeline.jpg)
+- [Introduction](#introduction)
+- [Contributors](#contributors)
+- [Superpoint Finetuning](#superpoint-finetuning)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Evaluation](#evaluation)
+- [Acknowledgments](#acknowledgments)
+
+## Introduction
+
+UR-MVO is a robust monocular visual odometry pipeline designed specifically for underwater environments. Leveraging cutting-edge techniques such as SuperPoint for feature extraction and SuperGlue for feature matching, UR-MVO offers enhanced performance and reliability in underwater navigation tasks. Additionally, we incorporate semantic segmentation to improve the robustness of feature extraction, effectively filtering out features associated with dynamic objects or background clutter.
+
+![Pipeline](assets/pipeline.jpg)
 
 ## Contributors
-[Zein Barhoum](https://github.com/ZeinBarhoum),
-[Jaafar Mahmoud](https://github.com/JaafarMahmoud1),
-[yazan maalla](https://github.com/yazanmaalla),
-[Sulieman Daher](https://github.com/suliemanda).
 
+- [Zein Barhoum](https://github.com/ZeinBarhoum)
+- [Jaafar Mahmoud](https://github.com/JaafarMahmoud1)
+- [Yazan Maalla](https://github.com/yazanmaalla)
+- [Sulieman Daher](https://github.com/suliemanda)
+
+## Superpoint Finetuning
+
+## Installation
+
+## Usage
+
+## Evaluation
 
 ## Acknowledgments
-We would like to thank the [ORB-SLAM3](https://github.com/UZ-SLAMLab/ORB_SLAM3), and [AirVO](https://github.com/sair-lab/AirVO) works for inspiring developping parts of the work.
+
+We extend our gratitude to the creators of [ORB-SLAM3](https://github.com/UZ-SLAMLab/ORB_SLAM3) and [AirVO](https://github.com/sair-lab/AirVO) for their inspiring work, which has influenced and contributed to various aspects of our project.
