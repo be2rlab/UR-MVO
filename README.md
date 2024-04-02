@@ -45,9 +45,7 @@ for Harbor sequences compared to the ground truth trajectories:
 ![Pipeline](assets/traj.png)
 
 
-
-<iframe width="560" height="315" src="https://youtu.be/j7xBm6b5tUg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+[![video](https://img.youtube.com/vi/G6Htnage0GQ/maxresdefault.jpg)](https://youtu.be/G6Htnage0GQ)
 
 
 
