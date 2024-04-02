@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  UR_MVO:
+    build:
+      context: $ROOT_DIR
+      dockerfile: $ROOT_DIR/docker/Dockerfile
+    image: ur_mvo
+    network_mode: host
+    ipc: host
+    environment:
+      - QT_X11_NO_MITSHM=1
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR
+      - DISPLAY=$DISPLAY
+      - VGL_DISPLAY=${RENDER_DISPLAY:-":1"}
+    volumes:
+      - /tmp/.X11-unix/:/tmp/.X11-unix
+      - $ROOT_DIR/output:/workspace/ros2_ws/src/ur_mvo/output
+      - $ROOT_DIR/:/workspace/ros2_ws/src/ur_mvo
+      - $DATA_DIR/:/data
+    runtime: nvidia
+    privileged: true
+    command: bash
+
+  visualization:
+    build:
+      context: $ROOT_DIR
+      dockerfile: $ROOT_DIR/docker/visualization.Dockerfile
+    image: ur_mvo_visualization
+    network_mode: host
+    ipc: host
+    environment:
+      - QT_X11_NO_MITSHM=1
+      - XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR
+      - DISPLAY=$DISPLAY
+      - VGL_DISPLAY=${RENDER_DISPLAY:-":1"}
+    volumes:
+      - /tmp/.X11-unix/:/tmp/.X11-unix
+    privileged: true
+    command: bash -c "rviz2 -d /viz_ws/rviz/ur_mvo.rviz"
+

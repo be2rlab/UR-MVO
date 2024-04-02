@@ -1,0 +1,58 @@
+input:
+  camera_config_path: camera_settings/cave.yaml
+  use_mask: 0
+  sensor_setup: 0
+  stereo_tracking: 0
+superpoint:
+  max_keypoints: 1000
+  keypoint_threshold: 0.0005
+  remove_borders: 4
+  input_tensor_names:
+    - input
+  output_tensor_names:
+    - scores
+    - descriptors
+  onnx_file: interrupt_magic_desc_aq_sim_int32.onnx
+  engine_file: interrupt_magic_desc_aq_sim_int32.engine
+  dla_core: -1
+superglue:
+  image_width: 800
+  image_height: 600
+  input_tensor_names:
+    - keypoints_0
+    - scores_0
+    - descriptors_0
+    - keypoints_1
+    - scores_1
+    - descriptors_1
+  output_tensor_names:
+    - scores
+  onnx_file: superglue_indoor_sim_int32.onnx
+  engine_file: superglue_indoor_sim_int32.engine
+  dla_core: -1
+keyframe:
+  min_num_match: 1
+  max_num_match: 10
+  max_distance: 0.5
+  max_angle: 0.52
+  max_num_passed_frame: 10
+optimization:
+  tracking:
+    mono_point: 10
+    stereo_point: 75
+    rate: 0.5
+  backend:
+    mono_point: 10
+    stereo_point: 75
+    rate: 0.5
+ros2_publisher:
+  feature: 1
+  feature_topic: /UR_MVO/feature
+  frame_pose: 1
+  frame_pose_topic: /UR_MVO/local_pose
+  keyframe: 1
+  keyframe_topic: /UR_MVO/keyframe
+  path_topic: /UR_MVO/odometry
+  map: 1
+  map_topic: /UR_MVO/map
+  publisher_name: UR_MVO

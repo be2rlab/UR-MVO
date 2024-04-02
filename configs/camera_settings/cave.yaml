@@ -1,0 +1,36 @@
+%YAML:1.0
+
+image_height: 600 
+image_width: 800
+
+bf: 47.90639384423901
+
+depth_lower_thr: 0.1
+depth_upper_thr: 10.0
+
+max_y_diff: 2
+
+# radial-tangential: 0, equidistant/fisheye: 1
+distortion_type: 0
+
+# stereo rectification
+LEFT_D: !!opencv-matrix
+   rows: 1
+   cols: 4
+   dt: d
+   data:  [-0.17473019446863114, 0.10643290428040156, 0.005210777878907861, -0.00028664918860079295]
+LEFT_K: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [578.25942673,0.,381.35416582,0.,578.28863331,308.38899269,0.,0.,1.]
+LEFT_R:  !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d 
+   data: [0.9999793557818297, -0.004380156721661268, 0.004701301654899955, 0.004372753517925784, 0.9999891851817647, 0.0015838390643426329, -0.004708188274500789, -0.0015632487338731646, 0.9999876945325716]
+LEFT_P:  !!opencv-matrix
+   rows: 3
+   cols: 4
+   dt: d
+   data: [578.25942673,0.,381.35416582,0.,0.,578.28863331,308.38899269,0.,0.,0.,1.,0.]
