@@ -66,7 +66,7 @@ Numerical Results ( **ATE** -*Absolute Translation Error* )  compared with other
 | LDSO   | X  | X | X     | X | 0.7 | 0.78 | X | 
 | UVS   | <u>0.44<u>  | **0.19** | **0.025**     | **0.29** | **0.11** |<u>0.09<u>  |  X | 
 | ORBSLAM   | X  | 0.44 | <u>0.031<u>     | X | <u>0.15<u> | 0.11 |  X | 
-| UR-MVO (ours)   | 0.26  | <u>0.3<u> | 0.096     | X | 0.22 | **0.047** |  X | 
+| UR-MVO (ours)   | **0.26**  | <u>0.3<u> | 0.096     | X | 0.22 | **0.047** |  X | 
 
 ## Acknowledgments
 
