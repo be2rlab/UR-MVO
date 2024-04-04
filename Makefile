@@ -10,7 +10,7 @@ DOCKER_COMPOSE_FILES := \
 	-f $(ROOT_DIR)/docker-compose.yaml
 
 RENDER_DISPLAY := $(DISPLAY)
-DATA_DIR?="/media/zein/Samsung_T5/SLAM/Underwater SLAM/"
+DATA_DIR?=$(ROOT_DIR)/data
 USER_ID=1000#$(UID)
 GROUP_ID=1000#$(GID)
 

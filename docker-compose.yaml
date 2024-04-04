@@ -20,6 +20,7 @@ services:
       - $ROOT_DIR/output:/workspace/ros2_ws/src/ur_mvo/output
       - $ROOT_DIR/:/workspace/ros2_ws/src/ur_mvo
       - $DATA_DIR/:/data
+      - /media/:/media/
     runtime: nvidia
     privileged: true
     command: bash

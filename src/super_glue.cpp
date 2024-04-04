@@ -415,7 +415,7 @@ void decode(float *scores, int h, int w, std::vector<int> &indices0,
   where_gather(mutual1, max_indices1, mscores0, mscores1, w - 1);
   auto *valid0 = new int[h - 1];
   auto *valid1 = new int[w - 1];
-  and_threshold(mutual0, valid0, mscores0, 0.01);
+  and_threshold(mutual0, valid0, mscores0, 0.2);
   and_gather(mutual1, valid0, max_indices1, valid1, w - 1);
   where_negative_one(valid0, max_indices0, h - 1, indices0);
   where_negative_one(valid1, max_indices1, w - 1, indices1);

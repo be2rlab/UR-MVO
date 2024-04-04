@@ -12,8 +12,8 @@ superpoint:
   output_tensor_names:
     - scores
     - descriptors
-  onnx_file: interrupt_magic_desc_aq_sim_int32.onnx
-  engine_file: interrupt_magic_desc_aq_sim_int32.engine
+  onnx_file: superpoint_ft_sim_int32.onnx
+  engine_file: superpoint_ft_sim_int32.engine
   dla_core: -1
 superglue:
   image_width: 640
@@ -35,7 +35,7 @@ keyframe:
   max_num_match: 2
   max_distance: 0.5
   max_angle: 0.52
-  max_num_passed_frame: 9
+  max_num_passed_frame: 10
 optimization:
   tracking:
     mono_point: 10

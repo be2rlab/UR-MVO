@@ -24,10 +24,8 @@ int PointMatching::MatchingPoints(
                          _superglue_config.image_height);
   Eigen::VectorXi indices0, indices1;
   Eigen::VectorXd mscores0, mscores1;
-  std::cout << -1 << std::endl;
   superglue.infer(norm_features0, norm_features1, indices0, indices1, mscores0,
                   mscores1);
-  std::cout << -2 << std::endl;
 
   int num_match = 0;
   std::vector<cv::Point2f> points0, points1;
@@ -45,14 +43,11 @@ int PointMatching::MatchingPoints(
       num_match++;
     }
   }
-  std::cout << "Num Matches" << num_match << std::endl;
 
   // reject outliers
   if (outlier_rejection && num_match > 0) {
     std::vector<uchar> inliers;
-    std::cout << 1 << std::endl;
     cv::findFundamentalMat(points0, points1, cv::FM_RANSAC, 3, 0.99, inliers);
-    std::cout << 2 << std::endl;
     int j = 0;
     for (int i = 0; i < matches.size(); i++) {
       if (inliers[i]) {

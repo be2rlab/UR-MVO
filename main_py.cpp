@@ -49,7 +49,6 @@ public:
 
         auto t1 = std::chrono::steady_clock::now();
         auto t01 = std::chrono::duration_cast<std::chrono::milliseconds>(t1-t0).count();
-        std::cout << "Processing Time for Frame id " << id << ": " << t01 << " msec." << std::endl;
         usleep(30000);
         if(p_map_builder.back()->gotResult()){
             pose = Eigen::Matrix4d::Identity();
@@ -94,7 +93,6 @@ public:
 
         auto t1 = std::chrono::steady_clock::now();
         auto t01 = std::chrono::duration_cast<std::chrono::milliseconds>(t1-t0).count();
-        std::cout << "Processing Time for Frame id " << id << ": " << t01 << " msec." << std::endl;
         usleep(30000);
         if(p_map_builder.back()->gotResult()){
             pose = Eigen::Matrix4d::Identity();
