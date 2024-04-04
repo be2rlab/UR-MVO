@@ -795,7 +795,7 @@ int Tracking::FramePoseOptimization(FramePtr frame,
     if (/*check_dp.norm() > 0.5 || */ num_cv_inliers <
         _configs.keyframe_config.min_num_match) {
       Twc = _last_frame->GetPose();
-      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+      // std::this_thread::sleep_for(std::chrono::milliseconds(1000));
       // InsertKeyframe(_last_frame);
       // TODO: check here in which cases this happens
       // std::cout<<"inliers: "<<num_cv_inliers<<"\n";
