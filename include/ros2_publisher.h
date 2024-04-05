@@ -28,6 +28,13 @@ struct FeatureMessage {
 using FeatureMessagePtr = std::shared_ptr<FeatureMessage>;
 using FeatureMessageConstPtr = std::shared_ptr<const FeatureMessage>;
 
+struct DebugMessage {
+  double time;
+  cv::Mat image;
+};
+using DebugMessagePtr = std::shared_ptr<DebugMessage>;
+using DebugMessageConstPtr = std::shared_ptr<const DebugMessage>;
+
 struct FramePoseMessage {
   double time;
   Eigen::Matrix4d pose;
@@ -64,6 +71,7 @@ public:
   Ros2Publisher(const RosPublisherConfig &ros_publisher_config);
 
   void PublishFeature(FeatureMessagePtr feature_message);
+  void PublishDebug(DebugMessagePtr debug_message);
   void PublishFramePose(FramePoseMessagePtr frame_pose_message);
   void PublishKeyframe(KeyframeMessagePtr keyframe_message);
   void PublishMap(MapMessagePtr map_message);
@@ -82,6 +90,10 @@ private:
   // for publishing features
   rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr _ros_feature_pub;
   ThreadPublisher<FeatureMessage> _feature_publisher;
+
+  // for publishing debug message
+  rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr _ros_debug_pub;
+  ThreadPublisher<DebugMessage> _debug_publisher;
 
   // for publishing frame
   rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr

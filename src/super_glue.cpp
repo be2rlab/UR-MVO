@@ -232,7 +232,7 @@ bool SuperGlue::infer(
   buffers.copyOutputToHost();
 
   // Verify results
-  if (!process_output(buffers, indices0, indices1, mscores0, mscores1)) {
+  if (!process_output(buffers, indices0, indices1, mscores0, mscores1, superglue_config_.matching_threshold)) {
     std::cout << "process output is bad is bad" << std::endl;
     return false;
   }
@@ -400,7 +400,7 @@ void and_gather(const int *mutual1, const int *valid0, const int *indices1,
 
 void decode(float *scores, int h, int w, std::vector<int> &indices0,
             std::vector<int> &indices1, std::vector<double> &mscores0,
-            std::vector<double> &mscores1) {
+            std::vector<double> &mscores1, double thresh) {
   auto *max_indices0 = new int[h - 1];
   auto *max_indices1 = new int[w - 1];
   auto *max_values0 = new float[h - 1];
@@ -415,7 +415,7 @@ void decode(float *scores, int h, int w, std::vector<int> &indices0,
   where_gather(mutual1, max_indices1, mscores0, mscores1, w - 1);
   auto *valid0 = new int[h - 1];
   auto *valid1 = new int[w - 1];
-  and_threshold(mutual0, valid0, mscores0, 0.01);
+  and_threshold(mutual0, valid0, mscores0, thresh);
   and_gather(mutual1, valid0, max_indices1, valid1, w - 1);
   where_negative_one(valid0, max_indices0, h - 1, indices0);
   where_negative_one(valid1, max_indices1, w - 1, indices1);
@@ -501,7 +501,8 @@ bool SuperGlue::process_output(const BufferManager &buffers,
                                Eigen::VectorXi &indices0,
                                Eigen::VectorXi &indices1,
                                Eigen::VectorXd &mscores0,
-                               Eigen::VectorXd &mscores1) {
+                               Eigen::VectorXd &mscores1,
+                               double thresh) {
   indices0_.clear();
   indices1_.clear();
   mscores0_.clear();
@@ -515,7 +516,7 @@ bool SuperGlue::process_output(const BufferManager &buffers,
   // scores_map_h = scores_map_h + 1;
   // scores_map_w = scores_map_w + 1;
   decode(output_score, scores_map_h, scores_map_w, indices0_, indices1_,
-         mscores0_, mscores1_);
+         mscores0_, mscores1_, thresh);
   indices0.resize(indices0_.size());
   indices1.resize(indices1_.size());
   mscores0.resize(mscores0_.size());

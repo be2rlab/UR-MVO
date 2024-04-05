@@ -21,6 +21,7 @@ struct SuperGlueConfig {
   int image_width;
   int image_height;
   int dla_core;
+  double matching_threshold;
   std::vector<std::string> input_tensor_names;
   std::vector<std::string> output_tensor_names;
   std::string onnx_file;
@@ -52,6 +53,8 @@ struct RosPublisherConfig {
   std::string path_topic;
   int map;
   std::string map_topic;
+  int debug;
+  std::string debug_topic;
 };
 
 enum class SensorSetup { Mono, Stereo, RGBD };
@@ -134,6 +137,8 @@ struct Configs {
     YAML::Node superglue_node = file_node["superglue"];
     superglue_config.image_width = superglue_node["image_width"].as<int>();
     superglue_config.image_height = superglue_node["image_height"].as<int>();
+    superglue_config.matching_threshold =
+        superglue_node["matching_threshold"].as<double>();
     superglue_config.dla_core = superglue_node["dla_core"].as<int>();
     YAML::Node superglue_input_tensor_names_node =
         superglue_node["input_tensor_names"];
@@ -203,6 +208,10 @@ struct Configs {
     ros_publisher_config.map = ros_publisher_node["map"].as<int>();
     ros_publisher_config.map_topic =
         ros_publisher_node["map_topic"].as<std::string>();
+    ros_publisher_config.debug = ros_publisher_node["debug"].as<int>();
+    ros_publisher_config.debug_topic =
+        ros_publisher_node["debug_topic"].as<std::string>();
+
   }
 };
 

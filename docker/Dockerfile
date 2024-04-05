@@ -143,16 +143,16 @@ RUN apt-get update && apt-get install -y \
 
 # Clone and build G2O
 RUN git clone https://github.com/RainerKuemmerle/g2o.git /tmp/g2o
-RUN mkdir -p /tmp/g2o/build && cd /tmp/g2o/build && cmake ../ && make -j3 && make install
+RUN mkdir -p /tmp/g2o/build && cd /tmp/g2o/build && cmake ../ && make && make install
 RUN ldconfig
 
 # Clone and build ONNX C++ library
 RUN git clone --recursive https://github.com/onnx/onnx.git /tmp/onnx
-RUN mkdir -p /tmp/onnx/build && cd /tmp/onnx/build && cmake .. && make -j3 && make install
+RUN mkdir -p /tmp/onnx/build && cd /tmp/onnx/build && cmake .. && make && make install
 
 # Clone and build Casadi
 RUN git clone https://github.com/casadi/casadi.git -b main /tmp/casadi
-RUN mkdir -p /tmp/casadi/build && cd /tmp/casadi/build && cmake -DWITH_PYTHON=ON -DWITH_PYTHON3=ON .. && make -j3 && make install
+RUN mkdir -p /tmp/casadi/build && cd /tmp/casadi/build && cmake -DWITH_PYTHON=ON -DWITH_PYTHON3=ON .. && make && make install
 RUN ldconfig
 
 
@@ -177,16 +177,15 @@ RUN pip install pyquaternion \
 
 FROM full as build 
 
+RUN pip install evo
+RUN pip install ruamel.yaml==0.17.32
 # Switch to the ROS2 workspace and install Python packages
 WORKDIR /workspace/ros2_ws/src
 COPY ${ROOT_DIR} /workspace/ros2_ws/src/ur_mvo
 WORKDIR /workspace/ros2_ws/src/ur_mvo
 RUN pip install -e .
 
-RUN pip install ruamel.yaml==0.17.32
 WORKDIR /workspace/ros2_ws
-
-
 
 ENV PYTHONPATH "/workspace/ros2_ws/src/ur_mvo:${PYTHONPATH}"
 ENV PYTHONPATH "/workspace/ros2_ws/build/ur_mvo:${PYTHONPATH}"

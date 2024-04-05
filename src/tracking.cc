@@ -96,7 +96,7 @@ void Tracking::AddInput(InputDataPtr data) {
   while (_data_buffer.size() >= 3 && !_shutdown) {
     usleep(2000);
   }
-  std::cout << "Input added -> " << data->id_ts << std::endl;
+  // std::cout << "Input added -> " << data->id_ts << std::endl;
   _buffer_mutex.lock();
   _data_buffer.push(data);
   _buffer_mutex.unlock();
@@ -159,7 +159,7 @@ void Tracking::ExtractFeatureThread() {
       if (!_init) {
         _init = Init(frame, image_undistort, mask, depth);
         _last_frame_track_well = _init;
-        std::cout << "Init !!" << std::endl;
+        // std::cout << "Init !!" << std::endl;
 
         if (_init) {
           _last_frame = frame;
@@ -170,7 +170,7 @@ void Tracking::ExtractFeatureThread() {
         }
         continue;
       }
-      std::cout << "after Init !!" << std::endl;
+      // std::cout << "after Init !!" << std::endl;
     } else {
       if (_sensor_setup == SensorSetup::Stereo) {
         if (!_init) {
@@ -410,7 +410,6 @@ bool Tracking::Init(FramePtr frame, const cv::Mat &image, const cv::Mat &mask,
   };
 
   if (!depth.empty()) {
-    std::cout << "here" << std::endl;
     Eigen::Matrix<double, 259, Eigen::Dynamic> features;
 
     ExtractFeatrue(image, mask, features);
@@ -419,7 +418,6 @@ bool Tracking::Init(FramePtr frame, const cv::Mat &image, const cv::Mat &mask,
       return false;
     }
     frame->AddFeatures(features);
-    std::cout << "here 1" << std::endl;
 
     if (!depth.empty())
       _init_depth = depth.clone();
@@ -427,10 +425,8 @@ bool Tracking::Init(FramePtr frame, const cv::Mat &image, const cv::Mat &mask,
     setIdentity(frame);
     frame->debug_img = image.clone();
 
-    std::cout << "here 2" << std::endl;
     cv::Mat depth_debug = _init_depth.clone();
 
-    std::cout << "here 3" << std::endl;
     auto init_pose = frame->GetPose();
     Eigen::Matrix3d Rwc = init_pose.block<3, 3>(0, 0);
     Eigen::Vector3d twc = init_pose.block<3, 1>(0, 3);
@@ -465,12 +461,10 @@ bool Tracking::Init(FramePtr frame, const cv::Mat &image, const cv::Mat &mask,
         good_point_num++;
       }
     }
-    std::cout << "Here 4: " << good_point_num << std::endl;
     frame->SetTrackIds(track_ids);
 
     if (good_point_num < 100)
       return false;
-    std::cout << "Here 5" << std::endl;
 
     // add frame and mappoints to map
     InsertKeyframe(frame);
@@ -560,8 +554,8 @@ bool Tracking::Init(FramePtr frame, const cv::Mat &image, const cv::Mat &mask,
     vKeys2.push_back(frame->GetKeypoint(idx1));
   }
 
-  std::cout << vKeys1.size() << ' ' << vKeys2.size() << std::endl;
-  std::cout << vMatches12.size() << std::endl;
+  // std::cout << vKeys1.size() << ' ' << vKeys2.size() << std::endl;
+  // std::cout << vMatches12.size() << std::endl;
   bool success = _2_view_reconstruct->reconstruct(vKeys1, vKeys2, vMatches12,
                                                   T21, vP3D, v3DInliers);
   size_t triangulated_point_num = 0;
@@ -762,8 +756,16 @@ int Tracking::TrackFrame(FramePtr frame0, FramePtr frame1,
     cv::circle(debug_img, cvPt, 4, cv::Scalar(0, 0, 255), -1);
     cv::line(debug_img, cvPt, kp.pt, cv::Scalar(0, 0, 255), 2);
   }
-  cv::imshow("debug", debug_img);
-  cv::waitKey(30);
+  // cv::imshow("debug", debug_img);
+  // cv::waitKey(30);
+  DebugMessagePtr debug_message =
+      std::shared_ptr<DebugMessage>(new DebugMessage);
+
+  debug_message->image = debug_img;
+  debug_message->time = frame1->GetTimestamp();
+
+  _ros_publisher->PublishDebug(debug_message);
+
   // update track id
   int RM = 0;
   if (num_inliers > _configs.keyframe_config.min_num_match) {
@@ -801,7 +803,7 @@ int Tracking::FramePoseOptimization(FramePtr frame,
     if (/*check_dp.norm() > 0.5 || */ num_cv_inliers <
         _configs.keyframe_config.min_num_match) {
       Twc = _last_frame->GetPose();
-      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+      // std::this_thread::sleep_for(std::chrono::milliseconds(1000));
       // InsertKeyframe(_last_frame);
       // TODO: check here in which cases this happens
       // std::cout<<"inliers: "<<num_cv_inliers<<"\n";
@@ -941,15 +943,15 @@ bool Tracking::AddKeyframe(FramePtr last_keyframe, FramePtr current_frame,
 
   bool keyframe = not_enough_match || large_delta_angle || large_distance ||
                   enough_passed_frame;
-  if (keyframe) {
-    std::cout << "Keyframe: " << num_match << " " << delta_angle << " "
-              << delta_distance << " " << delte_time << " " << passed_frame_num
-              << std::endl;
-  } else {
-    std::cout << "Not Keyframe: " << num_match << " " << delta_angle << " "
-              << delta_distance << " " << delte_time << " " << passed_frame_num
-              << std::endl;
-  }
+  // if (keyframe) {
+  //   std::cout << "Keyframe: " << num_match << " " << delta_angle << " "
+  //             << delta_distance << " " << delte_time << " " << passed_frame_num
+  //             << std::endl;
+  // } else {
+  //   std::cout << "Not Keyframe: " << num_match << " " << delta_angle << " "
+  //             << delta_distance << " " << delte_time << " " << passed_frame_num
+  //             << std::endl;
+  // }
 
   return (keyframe);
   // return true;

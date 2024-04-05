@@ -63,7 +63,7 @@ private:
 
   bool process_output(const tensorrt_buffer::BufferManager &buffers,
                       Eigen::VectorXi &indices0, Eigen::VectorXi &indices1,
-                      Eigen::VectorXd &mscores0, Eigen::VectorXd &mscores1);
+                      Eigen::VectorXd &mscores0, Eigen::VectorXd &mscores1, double thresh);
 };
 
 typedef std::shared_ptr<SuperGlue> SuperGluePtr;
