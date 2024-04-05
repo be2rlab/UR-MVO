@@ -18,6 +18,7 @@ superpoint:
 superglue:
   image_width: 640
   image_height: 512
+  matching_threshold: 0.5
   input_tensor_names:
     - keypoints_0
     - scores_0

@@ -729,35 +729,35 @@ int Tracking::TrackFrame(FramePtr frame0, FramePtr frame1,
 
   int num_inliers = FramePoseOptimization(frame1, matched_mappoints, inliers);
 
-  // cv::Mat debug_img = frame1->debug_img.clone();
-  // cv::cvtColor(debug_img, debug_img, cv::COLOR_GRAY2BGR);
-  // for (int i = 0; i < matched_mappoints.size(); i++) {
-  //   if (inliers[i] < 0)
-  //     continue;
-  //   auto mpt = matched_mappoints[i];
-  //   if (!mpt || !mpt->IsValid())
-  //     continue;
-  //
-  //   auto kp = frame1->GetKeypoint(i);
-  //   cv::circle(debug_img, kp.pt, 8, cv::Scalar(0, 255, 0), 2);
-  //
-  //   Eigen::Matrix4d pose = frame1->GetPose();
-  //   Eigen::Matrix3d Rwc = pose.block<3, 3>(0, 0);
-  //   Eigen::Vector3d twc = pose.block<3, 1>(0, 3);
-  //
-  //   const Eigen::Vector3d &pw = mpt->GetPosition();
-  //   Eigen::Vector3d pc = Rwc.transpose() * (pw - twc);
-  //   if (pc(2) <= 0)
-  //     continue;
-  //   // check whether mappoint can project on the image
-  //   Eigen::Vector2d p2D;
-  //   frame1->GetCamera()->Project(p2D, pc);
-  //   cv::Point cvPt(int(p2D.x()), int(p2D.y()));
-  //   cv::circle(debug_img, cvPt, 4, cv::Scalar(0, 0, 255), -1);
-  //   cv::line(debug_img, cvPt, kp.pt, cv::Scalar(0, 0, 255), 2);
-  // }
-  // cv::imshow("debug", debug_img);
-  // cv::waitKey(30);
+  cv::Mat debug_img = frame1->debug_img.clone();
+  cv::cvtColor(debug_img, debug_img, cv::COLOR_GRAY2BGR);
+  for (int i = 0; i < matched_mappoints.size(); i++) {
+    if (inliers[i] < 0)
+      continue;
+    auto mpt = matched_mappoints[i];
+    if (!mpt || !mpt->IsValid())
+      continue;
+
+    auto kp = frame1->GetKeypoint(i);
+    cv::circle(debug_img, kp.pt, 8, cv::Scalar(0, 255, 0), 2);
+
+    Eigen::Matrix4d pose = frame1->GetPose();
+    Eigen::Matrix3d Rwc = pose.block<3, 3>(0, 0);
+    Eigen::Vector3d twc = pose.block<3, 1>(0, 3);
+
+    const Eigen::Vector3d &pw = mpt->GetPosition();
+    Eigen::Vector3d pc = Rwc.transpose() * (pw - twc);
+    if (pc(2) <= 0)
+      continue;
+    // check whether mappoint can project on the image
+    Eigen::Vector2d p2D;
+    frame1->GetCamera()->Project(p2D, pc);
+    cv::Point cvPt(int(p2D.x()), int(p2D.y()));
+    cv::circle(debug_img, cvPt, 4, cv::Scalar(0, 0, 255), -1);
+    cv::line(debug_img, cvPt, kp.pt, cv::Scalar(0, 0, 255), 2);
+  }
+  cv::imshow("debug", debug_img);
+  cv::waitKey(30);
   // update track id
   int RM = 0;
   if (num_inliers > _configs.keyframe_config.min_num_match) {

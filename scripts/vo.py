@@ -29,11 +29,11 @@ class vo(Node):
         VO = UR_MVO(config, Setup.MONO)
 
         if images_path is None:
-            images_path = '/data/aqua/harbor/raw_data2/harbor_images_sequence_02'
+            images_path = '/data/aqua/harbor/raw_data1/harbor_images_sequence_01'
         if gt_path is None:
-            gt_path = '/data/aqua/harbor/raw_data2/new_harbor_colmap_traj_sequence_02.txt'
+            gt_path = '/data/aqua/harbor/raw_data1/new_harbor_colmap_traj_sequence_01.txt'
         if results_path is None:
-            results_path = '/data/aqua/harbor/raw_data2/results_urmvo'
+            results_path = '/data/aqua/harbor/raw_data1/results_urmvo'
 
         image_stamps = sorted(os.listdir(images_path))
         print(f"Reading {len(image_stamps)} Images")
