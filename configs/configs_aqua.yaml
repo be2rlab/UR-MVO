@@ -57,3 +57,5 @@ ros2_publisher:
   map: 1
   map_topic: /UR_MVO/map
   publisher_name: UR_MVO
+  debug: 1
+  debug_topic: /UR_MVO/debug

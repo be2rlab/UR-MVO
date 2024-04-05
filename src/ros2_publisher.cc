@@ -32,6 +32,23 @@ Ros2Publisher::Ros2Publisher(const RosPublisherConfig &ros_publisher_config)
     _feature_publisher.Register(publish_feature_function);
     _feature_publisher.Start();
   }
+  if (_config.debug) {
+    _ros_debug_pub = this->create_publisher<sensor_msgs::msg::Image>(
+        _config.debug_topic, 10);
+    std::function<void(const DebugMessageConstPtr &)>
+        publish_debug_function =
+            [&](const DebugMessageConstPtr &debug_message) {
+              cv::Mat drawed_image = debug_message->image;
+              sensor_msgs::msg::Image::SharedPtr ros_debug_msg =
+                  cv_bridge::CvImage(std_msgs::msg::Header(), "bgr8",
+                                     drawed_image)
+                      .toImageMsg();
+              _ros_debug_pub->publish(*ros_debug_msg.get());
+            };
+    _debug_publisher.Register(publish_debug_function);
+    _debug_publisher.Start();
+  }
+
 
   if (_config.frame_pose) {
     _ros_frame_pose_pub =
@@ -149,6 +166,9 @@ Ros2Publisher::Ros2Publisher(const RosPublisherConfig &ros_publisher_config)
 
 void Ros2Publisher::PublishFeature(FeatureMessagePtr feature_message) {
   _feature_publisher.Publish(feature_message);
+}
+void Ros2Publisher::PublishDebug(DebugMessagePtr debug_message) {
+  _debug_publisher.Publish(debug_message);
 }
 
 void Ros2Publisher::PublishFramePose(FramePoseMessagePtr frame_pose_message) {

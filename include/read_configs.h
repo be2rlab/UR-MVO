@@ -53,6 +53,8 @@ struct RosPublisherConfig {
   std::string path_topic;
   int map;
   std::string map_topic;
+  int debug;
+  std::string debug_topic;
 };
 
 enum class SensorSetup { Mono, Stereo, RGBD };
@@ -206,6 +208,10 @@ struct Configs {
     ros_publisher_config.map = ros_publisher_node["map"].as<int>();
     ros_publisher_config.map_topic =
         ros_publisher_node["map_topic"].as<std::string>();
+    ros_publisher_config.debug = ros_publisher_node["debug"].as<int>();
+    ros_publisher_config.debug_topic =
+        ros_publisher_node["debug_topic"].as<std::string>();
+
   }
 };
 

@@ -61,6 +61,21 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /UR_MVO/feature
       Value: true
+    - Class: rviz_default_plugins/Image
+      Enabled: true
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /UR_MVO/debug
+      Value: true
+
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:

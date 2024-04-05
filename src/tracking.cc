@@ -756,8 +756,16 @@ int Tracking::TrackFrame(FramePtr frame0, FramePtr frame1,
     cv::circle(debug_img, cvPt, 4, cv::Scalar(0, 0, 255), -1);
     cv::line(debug_img, cvPt, kp.pt, cv::Scalar(0, 0, 255), 2);
   }
-  cv::imshow("debug", debug_img);
-  cv::waitKey(30);
+  // cv::imshow("debug", debug_img);
+  // cv::waitKey(30);
+  DebugMessagePtr debug_message =
+      std::shared_ptr<DebugMessage>(new DebugMessage);
+
+  debug_message->image = debug_img;
+  debug_message->time = frame1->GetTimestamp();
+
+  _ros_publisher->PublishDebug(debug_message);
+
   // update track id
   int RM = 0;
   if (num_inliers > _configs.keyframe_config.min_num_match) {
