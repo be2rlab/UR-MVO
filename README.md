@@ -2,13 +2,15 @@
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Contributors](#contributors)
-- [Superpoint Finetuning](#superpoint-finetuning)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Evaluation](#evaluation)
-- [Acknowledgments](#acknowledgments)
+- [UR-MVO: Underwater Robust Monocular Visual Odometry](#ur-mvo-underwater-robust-monocular-visual-odometry)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Contributors](#contributors)
+  - [Scientific Supervision](#scientific-supervision)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Evaluation](#evaluation)
+  - [Acknowledgments](#acknowledgments)
 
 ## Introduction
 
@@ -28,11 +30,31 @@ UR-MVO is a robust monocular visual odometry pipeline designed specifically for 
 - [Sergey Kolyubin](https://scholar.google.com/citations?user=2Js0FRUAAAAJ&hl=en)
 
 
-<!-- ## Superpoint Finetuning
 
 ## Installation
+To build the project, use the following command. This will build a docker image with all the dependencies and the project itself.
+```bash
+make build
+```
+Additionally, the following command is used to build the visualization image.
+```bash
+make build-visualization  
+```
+## Usage
+Add the images of the sequence to run into `data/images` directory. Also add the ground truth `.txt` file (in TUM) format as `data/gt.txt`. 
 
-## Usage -->
+Next, launch the docker container using:
+```bash
+make run
+```
+Inside the docker container, run the following to start VO:
+```bash
+python vo.py --images /data/images --gt /data/gt.txt --results /data/results/
+```
+Optionally, to visualize the generated path, map-points and features, launch the visualization in a separate terminal using the following command:
+```bash
+make run-visualization
+```
 
 ## Evaluation
 
