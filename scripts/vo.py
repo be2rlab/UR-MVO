@@ -1,6 +1,7 @@
 import os
 import time
 import subprocess as sp
+import argparse
 
 import cv2 as cv
 import cv_bridge
@@ -29,11 +30,11 @@ class vo(Node):
         VO = UR_MVO(config, Setup.MONO)
 
         if images_path is None:
-            images_path = '/data/aqua/harbor/raw_data1/harbor_images_sequence_01'
+            images_path = '/data/images'
         if gt_path is None:
-            gt_path = '/data/aqua/harbor/raw_data1/new_harbor_colmap_traj_sequence_01.txt'
+            gt_path = '/data/gt.txt'
         if results_path is None:
-            results_path = '/data/aqua/harbor/raw_data1/results_urmvo'
+            results_path = '/data/results'
 
         image_stamps = sorted(os.listdir(images_path))
         print(f"Reading {len(image_stamps)} Images")
@@ -75,8 +76,15 @@ class vo(Node):
 
 
 def main(args=None):
+    parser = argparse.ArgumentParser(
+        description='Run Visual Odometry using a directory of images')
+    parser.add_argument('--images', default='/data/images', help="directory containing images")
+    parser.add_argument('--gt', default='/data/gt.txt', help="Path of .txt file of the ground truth in TUM format")
+    parser.add_argument('--results', default='/data/results', help="Where to save the results of evaluation")
+    args_vo = parser.parse_args()
+
     rclpy.init(args=args)
-    ur_mvo_node = vo()
+    ur_mvo_node = vo(args_vo.images, args_vo.gt, args_vo.results)
     ur_mvo_node.destroy_node()
     rclpy.shutdown()
 
