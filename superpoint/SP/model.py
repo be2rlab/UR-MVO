@@ -53,10 +53,6 @@ class SuperPoint(nn.Module):
         self.convDb = nn.Conv2d(c5, 256, kernel_size=1, stride=1, padding=0)
 
     def forward(self, image):
-
-        if image.shape[1] == 3:  # RGB to gray
-            scale = image.new_tensor([0.299, 0.587, 0.114]).view(1, 3, 1, 1)
-            image = (image * scale).sum(1, keepdim=True)
         """ Compute dense representation of scores and descriptors for an image """
         # Shared Encoder
         x = self.relu(self.conv1a(image))
