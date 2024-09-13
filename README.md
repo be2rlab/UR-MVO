@@ -32,7 +32,7 @@ UR-MVO is a robust monocular visual odometry pipeline designed specifically for 
 
 
 ## Installation
-To build the project, use the following command. This will build a docker image with all the dependencies and the project itself.
+To build the project, first ensure that docker and docker-compose are available on the system and then use the following command, which will build a docker image with all the dependencies and the project itself.
 ```bash
 make build
 ```
