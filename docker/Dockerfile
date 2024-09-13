@@ -147,7 +147,7 @@ RUN mkdir -p /tmp/g2o/build && cd /tmp/g2o/build && cmake ../ && make && make in
 RUN ldconfig
 
 # Clone and build ONNX C++ library
-RUN git clone --recursive https://github.com/onnx/onnx.git /tmp/onnx
+RUN git clone --recursive --depth 1 https://github.com/onnx/onnx.git /tmp/onnx
 RUN mkdir -p /tmp/onnx/build && cd /tmp/onnx/build && cmake .. && make && make install
 
 # Clone and build Casadi
