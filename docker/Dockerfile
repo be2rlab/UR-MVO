@@ -148,6 +148,7 @@ RUN ldconfig
 
 # Clone and build ONNX C++ library
 RUN git clone --recursive --depth 1 https://github.com/onnx/onnx.git /tmp/onnx
+RUN cd /tmp/onnx && git fetch --tags && git checkout tags/v1.16.2
 RUN mkdir -p /tmp/onnx/build && cd /tmp/onnx/build && cmake .. && make && make install
 
 # Clone and build Casadi
