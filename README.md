@@ -1,4 +1,4 @@
-# UR-MVO: Underwater Robust Monocular Visual Odometry
+# UR-MVO: Underwater Robust Monocular Visual Odometry (ICRA25)
 
 ## Table of Contents
 
